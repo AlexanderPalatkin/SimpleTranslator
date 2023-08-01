@@ -9,9 +9,10 @@ import com.example.simpletranslator.R
 import com.example.simpletranslator.model.data.DataModel
 
 class MainAdapter(
-    private val onListItemClickListener: OnListItemClickListener,
-    private var data: List<DataModel>
+    private val onListItemClickListener: OnListItemClickListener
 ) : RecyclerView.Adapter<MainAdapter.RecyclerItemViewHolder>() {
+
+    private var data: List<DataModel> = arrayListOf()
 
     fun setData(data: List<DataModel>) {
         this.data = data

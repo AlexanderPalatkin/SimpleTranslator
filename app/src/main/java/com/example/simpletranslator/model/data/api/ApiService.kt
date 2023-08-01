@@ -1,4 +1,4 @@
-package com.example.simpletranslator.model.datasource
+package com.example.simpletranslator.model.data.api
 
 import com.example.simpletranslator.model.data.DataModel
 import io.reactivex.Observable

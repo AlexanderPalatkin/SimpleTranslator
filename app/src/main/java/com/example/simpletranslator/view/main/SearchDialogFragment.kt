@@ -5,7 +5,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-
 import android.view.ViewGroup
 import com.example.simpletranslator.databinding.SearchDialogFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -15,6 +14,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     private var _binding: SearchDialogFragmentBinding? = null
     private val binding get() = _binding!!
     private var onSearchClickListener: OnSearchClickListener? = null
+
     private val textWatcher = object : TextWatcher {
         override fun onTextChanged(
             s: CharSequence, start: Int, before: Int, count:
