@@ -1,6 +1,8 @@
 package com.example.simpletranslator.model.datasource
 
 import com.example.simpletranslator.model.data.DataModel
+import com.example.simpletranslator.model.data.api.ApiService
+import com.example.simpletranslator.model.data.api.BaseInterceptor
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
 import okhttp3.Interceptor
