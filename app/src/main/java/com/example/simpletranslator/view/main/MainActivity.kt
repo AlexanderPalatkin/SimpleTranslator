@@ -6,7 +6,6 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.simpletranslator.R
 import com.example.simpletranslator.databinding.ActivityMainBinding
@@ -15,16 +14,12 @@ import com.example.simpletranslator.model.data.DataModel
 import com.example.simpletranslator.utils.network.isOnline
 import com.example.simpletranslator.view.base.BaseActivity
 import com.example.simpletranslator.view.main.adapter.MainAdapter
-import dagger.android.AndroidInjection
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
-
     private lateinit var binding: ActivityMainBinding
-    override lateinit var model: MainViewModel
+    override val model by viewModel<MainViewModel>()
     private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
 
     private val fabClickListener: View.OnClickListener =
@@ -54,13 +49,11 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
 
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        model = viewModelFactory.create(MainViewModel::class.java)
         model.subscribe().observe(this@MainActivity, Observer<AppState> { renderData(it) })
 
         binding.searchFab.setOnClickListener(fabClickListener)
