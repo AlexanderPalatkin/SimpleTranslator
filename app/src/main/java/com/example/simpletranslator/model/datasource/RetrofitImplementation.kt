@@ -1,5 +1,6 @@
 package com.example.simpletranslator.model.datasource
 
+import com.example.simpletranslator.BuildConfig
 import com.example.simpletranslator.model.data.DataModel
 import com.example.simpletranslator.model.data.api.ApiService
 import com.example.simpletranslator.model.data.api.BaseInterceptor
@@ -21,7 +22,7 @@ class RetrofitImplementation : DataSource<List<DataModel>> {
 
     private fun createRetrofit(interceptor: Interceptor): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL_LOCATIONS)
+            .baseUrl(BuildConfig.BASE_URL_LOCATIONS)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(createOkHttpClient(interceptor))
@@ -35,10 +36,5 @@ class RetrofitImplementation : DataSource<List<DataModel>> {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         )
         return httpClient.build()
-    }
-
-    companion object {
-        private const val BASE_URL_LOCATIONS =
-            "https://dictionary.skyeng.ru/api/public/v1/"
     }
 }
