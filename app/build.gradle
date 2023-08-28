@@ -19,6 +19,13 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("url.properties").newDataInputStream())
+        def url = properties.getProperty("skyeng_base_url_locations", "")
+        it.buildConfigField "String", "BASE_URL_LOCATIONS", url
+    }
+
     buildTypes {
         release {
             minifyEnabled false

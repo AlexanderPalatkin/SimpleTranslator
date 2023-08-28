@@ -1,13 +1,11 @@
 package com.example.simpletranslator.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.simpletranslator.model.data.AppState
 import kotlinx.coroutines.*
 
-abstract class BaseViewModel<T : AppState>(
-    protected val _liveDataForViewToObserve: MutableLiveData<T> = MutableLiveData(),
-) : ViewModel() {
+abstract class BaseViewModel<T : AppState>
+    : ViewModel() {
 
     protected val viewModelCoroutineScope = CoroutineScope(
         Dispatchers.Main
