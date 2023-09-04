@@ -3,6 +3,7 @@ package com.example.simpletranslator.utils
 import com.example.simpletranslator.model.data.AppState
 import com.example.simpletranslator.model.data.DataModel
 import com.example.simpletranslator.model.data.Meanings
+import com.example.simpletranslator.model.data.Translation
 import com.example.simpletranslator.model.room.HistoryEntity
 
 fun mapHistoryEntityToSearchResult(list: List<HistoryEntity>): List<DataModel> {
@@ -10,7 +11,9 @@ fun mapHistoryEntityToSearchResult(list: List<HistoryEntity>): List<DataModel> {
 
     if (list.isNotEmpty()) {
         for (entity in list) {
-            searchResult.add(DataModel(entity.word, null))
+            val meanings = listOf(Meanings(Translation(entity.description), entity.imageUrl))
+
+            searchResult.add(DataModel(entity.word, meanings))
         }
     }
 
@@ -25,7 +28,11 @@ fun convertDataModelSuccessToEntity(appState: AppState): HistoryEntity? {
             if (searchResult.isNullOrEmpty() || searchResult[0].text.isNullOrEmpty()) {
                 null
             } else {
-                HistoryEntity(searchResult[0].text!!, null)
+                HistoryEntity(
+                    searchResult[0].text!!,
+                    convertMeaningsToString(searchResult[0].meanings!!),
+                    searchResult[0].meanings?.get(0)?.imageUrl
+                )
             }
         }
         else -> null

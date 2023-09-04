@@ -4,11 +4,9 @@ import androidx.room.Room
 import com.example.simpletranslator.model.data.DataModel
 import com.example.simpletranslator.model.datasource.RetrofitImplementation
 import com.example.simpletranslator.model.datasource.RoomDataBaseImplementation
-import com.example.simpletranslator.model.repository.Repository
-import com.example.simpletranslator.model.repository.RepositoryImplementation
-import com.example.simpletranslator.model.repository.RepositoryImplementationLocal
-import com.example.simpletranslator.model.repository.RepositoryLocal
+import com.example.simpletranslator.model.repository.*
 import com.example.simpletranslator.model.room.HistoryDataBase
+import com.example.simpletranslator.model.room.HistoryEntity
 import com.example.simpletranslator.viewmodel.history.HistoryInteractor
 import com.example.simpletranslator.viewmodel.history.HistoryViewModel
 import com.example.simpletranslator.viewmodel.main.MainInteractor
@@ -32,6 +30,10 @@ val application = module {
             RoomDataBaseImplementation(get())
         )
     }
+
+    single<HistoryRepository<HistoryEntity>>{
+        HistoryRepositoryImplementation(get())
+    }
 }
 
 val mainScreen = module {
@@ -40,6 +42,6 @@ val mainScreen = module {
 }
 
 val historyScreen = module {
-    factory { HistoryViewModel(get()) }
+    factory { HistoryViewModel(get(), get()) }
     factory { HistoryInteractor(get(), get()) }
 }

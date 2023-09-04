@@ -12,7 +12,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 class SearchDialogFragment : BottomSheetDialogFragment() {
 
     private var _binding: SearchDialogFragmentBinding? = null
-
     private val binding get() = _binding!!
 
     private var onSearchClickListener: OnSearchClickListener? = null
@@ -27,10 +26,10 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
                 binding.searchEditText.text.toString().isNotEmpty()
             ) {
                 binding.searchButtonTextview.isEnabled = true
-                binding.clearTextImageview.visibility = View.VISIBLE
+                binding.searchClearTextImageview.visibility = View.VISIBLE
             } else {
                 binding.searchButtonTextview.isEnabled = false
-                binding.clearTextImageview.visibility = View.GONE
+                binding.searchClearTextImageview.visibility = View.GONE
             }
         }
 
@@ -40,7 +39,8 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
         ) {
         }
 
-        override fun afterTextChanged(s: Editable) {}
+        override fun afterTextChanged(s: Editable) {
+        }
     }
 
     private val onSearchButtonClickListener =
@@ -78,7 +78,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     }
 
     private fun addOnClearClickListener() {
-        binding.clearTextImageview.setOnClickListener {
+        binding.searchClearTextImageview.setOnClickListener {
             binding.searchEditText.setText("")
             binding.searchButtonTextview.isEnabled = false
         }

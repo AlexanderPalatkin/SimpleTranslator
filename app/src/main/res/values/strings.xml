@@ -6,6 +6,7 @@
     <string name="empty_server_response_on_success">Response from server is
 empty</string>
     <string name="button_search">Search</string>
+    <string name="button_search_in_history">Search in history</string>
     <string name="search_hint">New word</string>
     <string name="delete_description">X</string>
     <string name="image_stub">image</string>
@@ -18,4 +19,5 @@ empty</string>
     </string>
     <string name="dialog_tittle_sorry">Sorry</string>
     <string name="menu_title_history">History</string>
+    <string name="menu_title_history_search">History search</string>
 </resources>

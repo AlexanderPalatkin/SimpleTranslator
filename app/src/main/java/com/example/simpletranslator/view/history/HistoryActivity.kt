@@ -1,11 +1,14 @@
 package com.example.simpletranslator.view.history
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
+import com.example.simpletranslator.R
 import com.example.simpletranslator.databinding.ActivityHistoryBinding
 import com.example.simpletranslator.model.data.AppState
 import com.example.simpletranslator.model.data.DataModel
 import com.example.simpletranslator.view.base.BaseActivity
+import com.example.simpletranslator.view.description.DescriptionActivity
 import com.example.simpletranslator.viewmodel.history.HistoryInteractor
 import com.example.simpletranslator.viewmodel.history.HistoryViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,6 +45,17 @@ class HistoryActivity : BaseActivity<AppState, HistoryInteractor>() {
                 onBackPressedDispatcher.onBackPressed()
                 true
             }
+            R.id.menu_history_search -> {
+                val historySearchDialogFragment = HistorySearchDialogFragment.newInstance()
+                historySearchDialogFragment.setOnHistorySearchClickListener(
+                    onHistorySearchClickListener
+                )
+                historySearchDialogFragment.show(
+                    supportFragmentManager,
+                    BOTTOM_SHEET_FRAGMENT_HISTORY_SEARCH_DIALOG_TAG
+                )
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -64,9 +78,42 @@ class HistoryActivity : BaseActivity<AppState, HistoryInteractor>() {
         model.subscribe().observe(this@HistoryActivity) {
             renderData(it)
         }
+        model.subscribeToSearchWord().observe(this@HistoryActivity) {
+            if (it != null) {
+                startActivity(
+                    DescriptionActivity.getIntent(
+                        this@HistoryActivity,
+                        it.word,
+                        it.description!!,
+                        it.imageUrl
+                    )
+                )
+            }
+        }
     }
 
     private fun initViews() {
         binding.historyActivityRecyclerview.adapter = adapter
+    }
+
+    private val onHistorySearchClickListener: HistorySearchDialogFragment.OnHistorySearchClickListener =
+        object : HistorySearchDialogFragment.OnHistorySearchClickListener {
+
+            override fun onClick(searchWord: String) {
+                if (searchWord.isNotEmpty()) {
+                    model.getDataByWord(word = searchWord)
+                }
+            }
+        }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.history_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    companion object {
+        private const val BOTTOM_SHEET_FRAGMENT_HISTORY_SEARCH_DIALOG_TAG =
+            "74a54328-5d62-46bf-ab6b-cbf5fgt0-092396"
     }
 }

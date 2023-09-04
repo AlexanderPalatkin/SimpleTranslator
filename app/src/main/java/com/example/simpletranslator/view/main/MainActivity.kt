@@ -30,11 +30,15 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         View.OnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
             searchDialogFragment.setOnSearchClickListener(onSearchClickListener)
-            searchDialogFragment.show(supportFragmentManager, BOTTOM_SHEET_FRAGMENT_DIALOG_TAG)
+            searchDialogFragment.show(
+                supportFragmentManager,
+                BOTTOM_SHEET_FRAGMENT_SEARCH_DIALOG_TAG
+            )
         }
 
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
         object : MainAdapter.OnListItemClickListener {
+
             override fun onItemClick(data: DataModel) {
                 startActivity(
                     DescriptionActivity.getIntent(
@@ -49,6 +53,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private val onSearchClickListener: SearchDialogFragment.OnSearchClickListener =
         object : SearchDialogFragment.OnSearchClickListener {
+
             override fun onClick(searchWord: String) {
                 isNetworkAvailable = isOnline(applicationContext)
                 if (isNetworkAvailable) {
@@ -74,12 +79,13 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.hisory_menu, menu)
+        menuInflater.inflate(R.menu.main_menu, menu)
 
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         return when (item.itemId) {
             R.id.menu_history -> {
                 startActivity(Intent(this, HistoryActivity::class.java))
@@ -105,7 +111,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
     }
 
     companion object {
-        private const val BOTTOM_SHEET_FRAGMENT_DIALOG_TAG =
+        private const val BOTTOM_SHEET_FRAGMENT_SEARCH_DIALOG_TAG =
             "74a54328-5d62-46bf-ab6b-cbf5fgt0-092395"
     }
 }
