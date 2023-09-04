@@ -1,4 +1,4 @@
-package com.example.simpletranslator.model.data.api
+package com.example.simpletranslator.model.datasource
 
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -12,6 +12,7 @@ class BaseInterceptor private constructor() : Interceptor {
         responseCode = response.code()
         return response
     }
+
     fun getResponseCode(): ServerResponseStatusCode {
         var statusCode = ServerResponseStatusCode.UNDEFINED_ERROR
         when (responseCode / 100) {

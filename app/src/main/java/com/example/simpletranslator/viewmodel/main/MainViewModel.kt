@@ -1,4 +1,4 @@
-package com.example.simpletranslator.view.main
+package com.example.simpletranslator.viewmodel.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -37,7 +37,7 @@ class MainViewModel(
             )
         }
 
-    override fun handlerError(error: Throwable) {
+    override fun handleError(error: Throwable) {
         liveDataForViewToObserve.postValue(AppState.Error(error))
     }
 

@@ -1,4 +1,4 @@
-package com.example.simpletranslator.view.main.adapter
+package com.example.simpletranslator.view.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +28,7 @@ class MainAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerItemViewHolder, position: Int) {
-        holder.bind(data.get(position))
+        holder.bind(data[position])
     }
 
     override fun getItemCount() = data.size
@@ -51,5 +51,4 @@ class MainAdapter(
     interface OnListItemClickListener {
         fun onItemClick(data: DataModel)
     }
-
 }
