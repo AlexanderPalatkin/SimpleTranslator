@@ -10,7 +10,7 @@ abstract class BaseViewModel<T : AppState>
     protected val viewModelCoroutineScope = CoroutineScope(
         Dispatchers.Main
                 + SupervisorJob()
-                + CoroutineExceptionHandler { _, throwable -> handlerError(throwable) }
+                + CoroutineExceptionHandler { _, throwable -> handleError(throwable) }
     )
 
     protected fun cancelJob() {
@@ -19,10 +19,11 @@ abstract class BaseViewModel<T : AppState>
 
     override fun onCleared() {
         super.onCleared()
+
         cancelJob()
     }
 
     abstract fun getData(word: String, isOnline: Boolean)
 
-    abstract fun handlerError(error: Throwable)
+    abstract fun handleError(error: Throwable)
 }

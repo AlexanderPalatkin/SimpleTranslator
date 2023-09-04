@@ -33,7 +33,6 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressedDispatcher.onBackPressed()
@@ -44,13 +43,11 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun setActionbarHomeButtonAsUp() {
-
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setData() {
-
         val bundle = intent.extras
 
         binding.descriptionHeader.text = bundle?.getString(WORD_EXTRA)
@@ -64,7 +61,6 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun useCoilToLoadPhoto(imageView: ImageView, imageLink: String) {
-
         val request = LoadRequest.Builder(this)
             .data("https:$imageLink")
             .target(
@@ -110,6 +106,7 @@ class DescriptionActivity : AppCompatActivity() {
         private const val WORD_EXTRA = "WORD_EXTRA"
         private const val DESCRIPTION_EXTRA = "DESCRIPTION_EXTRA"
         private const val URL_EXTRA = "URL_EXTRA"
+
         fun getIntent(
             context: Context,
             word: String,

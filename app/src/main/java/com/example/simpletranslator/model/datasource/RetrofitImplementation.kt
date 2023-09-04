@@ -2,8 +2,6 @@ package com.example.simpletranslator.model.datasource
 
 import com.example.simpletranslator.BuildConfig
 import com.example.simpletranslator.model.data.DataModel
-import com.example.simpletranslator.model.data.api.ApiService
-import com.example.simpletranslator.model.data.api.BaseInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -12,6 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitImplementation : DataSource<List<DataModel>> {
+
     override suspend fun getData(word: String): List<DataModel> {
         return getService(BaseInterceptor.interceptor).search(word)
     }
