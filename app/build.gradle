@@ -44,6 +44,8 @@ android {
 }
 
 dependencies {
+    implementation(project(Modules.utils))
+    implementation(project(Modules.model))
 
     // Retrofit 2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

@@ -1,8 +1,9 @@
-package com.example.simpletranslator.utils.ui
+package com.example.utils.ui
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
-import com.example.simpletranslator.R
+import com.example.utils.R
+
 
 fun getStubAlertDialog(context: Context): AlertDialog {
     return getAlertDialog(context, null, null)

@@ -1,7 +1,7 @@
 package com.example.simpletranslator.viewmodel.main
 
-import com.example.simpletranslator.model.data.AppState
-import com.example.simpletranslator.model.data.DataModel
+import com.example.model.AppState
+import com.example.model.data.DataModel
 import com.example.simpletranslator.model.repository.Repository
 import com.example.simpletranslator.model.repository.RepositoryLocal
 import com.example.simpletranslator.viewmodel.Interactor

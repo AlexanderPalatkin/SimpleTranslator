@@ -1,6 +1,6 @@
 package com.example.simpletranslator.model.datasource
 
-import com.example.simpletranslator.model.data.AppState
+import com.example.model.AppState
 
 interface DataSourceLocal<T>: DataSource<T> {
 

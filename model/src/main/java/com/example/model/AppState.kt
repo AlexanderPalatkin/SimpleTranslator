@@ -1,4 +1,6 @@
-package com.example.simpletranslator.model.data
+package com.example.model
+
+import com.example.model.data.DataModel
 
 sealed class AppState {
 

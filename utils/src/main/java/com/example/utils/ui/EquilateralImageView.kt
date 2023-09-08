@@ -1,4 +1,4 @@
-package com.example.simpletranslator.utils.ui
+package com.example.utils.ui
 
 import android.content.Context
 import android.util.AttributeSet

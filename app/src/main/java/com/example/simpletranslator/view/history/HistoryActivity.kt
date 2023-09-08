@@ -5,8 +5,8 @@ import android.view.Menu
 import android.view.MenuItem
 import com.example.simpletranslator.R
 import com.example.simpletranslator.databinding.ActivityHistoryBinding
-import com.example.simpletranslator.model.data.AppState
-import com.example.simpletranslator.model.data.DataModel
+import com.example.model.AppState
+import com.example.model.data.DataModel
 import com.example.simpletranslator.view.base.BaseActivity
 import com.example.simpletranslator.view.description.DescriptionActivity
 import com.example.simpletranslator.viewmodel.history.HistoryInteractor

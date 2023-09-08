@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.model.AppState
+import com.example.model.data.DataModel
 import com.example.simpletranslator.R
 import com.example.simpletranslator.databinding.LoadingLayoutBinding
-import com.example.simpletranslator.model.data.AppState
-import com.example.simpletranslator.model.data.DataModel
-import com.example.simpletranslator.utils.network.isOnline
-import com.example.simpletranslator.utils.ui.AlertDialogFragment
 import com.example.simpletranslator.viewmodel.BaseViewModel
 import com.example.simpletranslator.viewmodel.Interactor
+import com.example.utils.network.isOnline
 
 private const val DIALOG_FRAGMENT_TAG = "74a54328-5d62-46bf-ab6b-cbf5d8c79522"
 
@@ -58,7 +57,7 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity
                 if (appState.progress != null) {
                     binding.progressBarHorizontal.visibility = View.VISIBLE
                     binding.progressBarRound.visibility = View.GONE
-                    binding.progressBarHorizontal.progress = appState.progress
+                    binding.progressBarHorizontal.progress = appState.progress!!
                 } else {
                     binding.progressBarHorizontal.visibility = View.GONE
                     binding.progressBarRound.visibility = View.VISIBLE
@@ -80,7 +79,7 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity
     }
 
     private fun showAlertDialog(title: String?, message: String?) {
-        AlertDialogFragment.newInstance(title, message).show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
+        com.example.utils.ui.AlertDialogFragment.newInstance(title, message).show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
     }
 
     private fun showViewWorking() {

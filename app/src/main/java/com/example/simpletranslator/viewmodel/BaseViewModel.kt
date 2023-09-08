@@ -1,7 +1,7 @@
 package com.example.simpletranslator.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.simpletranslator.model.data.AppState
+import com.example.model.AppState
 import kotlinx.coroutines.*
 
 abstract class BaseViewModel<T : AppState>

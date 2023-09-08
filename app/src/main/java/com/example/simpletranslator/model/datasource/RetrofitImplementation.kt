@@ -1,7 +1,7 @@
 package com.example.simpletranslator.model.datasource
 
 import com.example.simpletranslator.BuildConfig
-import com.example.simpletranslator.model.data.DataModel
+import com.example.model.data.DataModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

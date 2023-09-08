@@ -2,7 +2,7 @@ package com.example.simpletranslator.viewmodel.history
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.simpletranslator.model.data.AppState
+import com.example.model.AppState
 import com.example.simpletranslator.model.repository.HistoryRepository
 import com.example.simpletranslator.model.room.HistoryEntity
 import com.example.simpletranslator.utils.parseLocalSearchResults

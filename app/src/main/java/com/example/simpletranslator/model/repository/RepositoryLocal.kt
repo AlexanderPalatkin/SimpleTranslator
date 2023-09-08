@@ -1,6 +1,6 @@
 package com.example.simpletranslator.model.repository
 
-import com.example.simpletranslator.model.data.AppState
+import com.example.model.AppState
 
 interface RepositoryLocal<T>: Repository<T> {
 

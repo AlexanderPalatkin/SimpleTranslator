@@ -5,20 +5,19 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.example.model.data.DataModel
 import com.example.simpletranslator.R
 import com.example.simpletranslator.databinding.ActivityMainBinding
-import com.example.simpletranslator.model.data.AppState
-import com.example.simpletranslator.model.data.DataModel
 import com.example.simpletranslator.utils.convertMeaningsToString
-import com.example.simpletranslator.utils.network.isOnline
 import com.example.simpletranslator.view.base.BaseActivity
 import com.example.simpletranslator.view.description.DescriptionActivity
 import com.example.simpletranslator.view.history.HistoryActivity
 import com.example.simpletranslator.viewmodel.main.MainInteractor
 import com.example.simpletranslator.viewmodel.main.MainViewModel
+import com.example.utils.network.isOnline
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<AppState, MainInteractor>() {
+class MainActivity : BaseActivity<com.example.model.AppState, MainInteractor>() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -45,7 +44,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                         this@MainActivity,
                         data.text!!,
                         convertMeaningsToString(data.meanings!!),
-                        data.meanings[0].imageUrl
+                        data.meanings!![0].imageUrl
                     )
                 )
             }

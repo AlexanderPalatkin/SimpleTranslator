@@ -11,8 +11,8 @@ import coil.request.LoadRequest
 import coil.transform.CircleCropTransformation
 import com.example.simpletranslator.R
 import com.example.simpletranslator.databinding.ActivityDescriptionBinding
-import com.example.simpletranslator.utils.network.isOnline
-import com.example.simpletranslator.utils.ui.AlertDialogFragment
+import com.example.utils.network.isOnline
+import com.example.utils.ui.AlertDialogFragment
 
 class DescriptionActivity : AppCompatActivity() {
 

@@ -1,9 +1,8 @@
 package com.example.simpletranslator.utils
 
-import com.example.simpletranslator.model.data.AppState
-import com.example.simpletranslator.model.data.DataModel
-import com.example.simpletranslator.model.data.Meanings
-import com.example.simpletranslator.model.data.Translation
+import com.example.model.AppState
+import com.example.model.data.DataModel
+import com.example.model.data.Meanings
 import com.example.simpletranslator.model.room.HistoryEntity
 
 fun mapHistoryEntityToSearchResult(list: List<HistoryEntity>): List<DataModel> {
@@ -11,7 +10,13 @@ fun mapHistoryEntityToSearchResult(list: List<HistoryEntity>): List<DataModel> {
 
     if (list.isNotEmpty()) {
         for (entity in list) {
-            val meanings = listOf(Meanings(Translation(entity.description), entity.imageUrl))
+            val meanings = listOf(
+                Meanings(
+                    com.example.model.data.Translation(
+                        entity.description
+                    ), entity.imageUrl
+                )
+            )
 
             searchResult.add(DataModel(entity.word, meanings))
         }
@@ -70,7 +75,8 @@ private fun getSuccessResultData(
     isOnline: Boolean,
     newDataModels: ArrayList<DataModel>
 ) {
-    val dataModels: List<DataModel> = appState.data as List<DataModel>
+    val dataModels: List<DataModel> =
+        appState.data as List<DataModel>
     if (dataModels.isNotEmpty()) {
         if (isOnline) {
             for (searchResult in dataModels) {
@@ -78,19 +84,34 @@ private fun getSuccessResultData(
             }
         } else {
             for (searchResult in dataModels) {
-                newDataModels.add(DataModel(searchResult.text, arrayListOf()))
+                newDataModels.add(
+                    DataModel(
+                        searchResult.text,
+                        arrayListOf()
+                    )
+                )
             }
         }
     }
 }
 
-private fun parseOnlineResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
+private fun parseOnlineResult(
+    dataModel: DataModel,
+    newDataModels: ArrayList<DataModel>
+) {
     if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
         val newMeanings = arrayListOf<Meanings>()
 
-        for (meaning in dataModel.meanings) {
-            if (meaning.translation != null && !meaning.translation.translation.isNullOrBlank()) {
-                newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
+        dataModel.meanings?.let {
+            for (meaning in dataModel.meanings!!) {
+                if (meaning.translation != null && !meaning.translation!!.translation.isNullOrBlank()) {
+                    newMeanings.add(
+                        Meanings(
+                            meaning.translation,
+                            meaning.imageUrl
+                        )
+                    )
+                }
             }
         }
 
@@ -118,14 +139,26 @@ fun parseSearchResults(state: AppState): AppState {
     return AppState.Success(newSearchResults)
 }
 
-private fun parseResult(dataModel: DataModel, newDataModels: ArrayList<DataModel>) {
+private fun parseResult(
+    dataModel: DataModel,
+    newDataModels: ArrayList<DataModel>
+) {
     if (!dataModel.text.isNullOrBlank() && !dataModel.meanings.isNullOrEmpty()) {
         val newMeanings = arrayListOf<Meanings>()
-        for (meaning in dataModel.meanings) {
-            if (meaning.translation != null && !meaning.translation.translation.isNullOrBlank()) {
-                newMeanings.add(Meanings(meaning.translation, meaning.imageUrl))
+
+        dataModel.meanings?.let {
+            for (meaning in dataModel.meanings!!) {
+                if (meaning.translation != null && !meaning.translation!!.translation.isNullOrBlank()) {
+                    newMeanings.add(
+                        Meanings(
+                            meaning.translation,
+                            meaning.imageUrl
+                        )
+                    )
+                }
             }
         }
+
         if (newMeanings.isNotEmpty()) {
             newDataModels.add(DataModel(dataModel.text, newMeanings))
         }

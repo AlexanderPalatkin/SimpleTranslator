@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simpletranslator.R
-import com.example.simpletranslator.model.data.DataModel
+import com.example.model.data.DataModel
 
 class MainAdapter(
     private val onListItemClickListener: OnListItemClickListener

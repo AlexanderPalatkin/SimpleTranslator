@@ -1,7 +1,7 @@
 package com.example.simpletranslator.di
 
 import androidx.room.Room
-import com.example.simpletranslator.model.data.DataModel
+import com.example.model.data.DataModel
 import com.example.simpletranslator.model.datasource.RetrofitImplementation
 import com.example.simpletranslator.model.datasource.RoomDataBaseImplementation
 import com.example.simpletranslator.model.repository.*
