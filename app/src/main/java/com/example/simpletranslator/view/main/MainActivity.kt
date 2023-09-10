@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.example.core.base.BaseActivity
+import com.example.model.AppState
 import com.example.model.data.DataModel
+import com.example.repository.convertMeaningsToString
 import com.example.simpletranslator.R
 import com.example.simpletranslator.databinding.ActivityMainBinding
-import com.example.repository.convertMeaningsToString
-import com.example.simpletranslator.view.base.BaseActivity
 import com.example.simpletranslator.view.description.DescriptionActivity
 import com.example.simpletranslator.view.history.HistoryActivity
 import com.example.simpletranslator.viewmodel.main.MainInteractor
@@ -17,7 +18,7 @@ import com.example.simpletranslator.viewmodel.main.MainViewModel
 import com.example.utils.network.isOnline
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : BaseActivity<com.example.model.AppState, MainInteractor>() {
+class MainActivity : BaseActivity<AppState, MainInteractor>() {
 
     private lateinit var binding: ActivityMainBinding
 

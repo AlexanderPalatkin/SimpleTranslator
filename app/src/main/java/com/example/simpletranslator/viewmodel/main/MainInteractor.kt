@@ -4,7 +4,7 @@ import com.example.model.AppState
 import com.example.model.data.DataModel
 import com.example.repository.Repository
 import com.example.repository.RepositoryLocal
-import com.example.simpletranslator.viewmodel.Interactor
+import com.example.core.viewmodel.Interactor
 
 class MainInteractor(
     private val remoteRepository: Repository<List<DataModel>>,

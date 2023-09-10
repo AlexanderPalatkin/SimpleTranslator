@@ -1,15 +1,15 @@
-package com.example.simpletranslator.view.base
+package com.example.core.base
 
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.example.core.R
+import com.example.core.databinding.LoadingLayoutBinding
+import com.example.core.viewmodel.BaseViewModel
+import com.example.core.viewmodel.Interactor
 import com.example.model.AppState
 import com.example.model.data.DataModel
-import com.example.simpletranslator.R
-import com.example.simpletranslator.databinding.LoadingLayoutBinding
-import com.example.simpletranslator.viewmodel.BaseViewModel
-import com.example.simpletranslator.viewmodel.Interactor
 import com.example.utils.network.isOnline
 
 private const val DIALOG_FRAGMENT_TAG = "74a54328-5d62-46bf-ab6b-cbf5d8c79522"
@@ -65,8 +65,10 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity
             }
             is AppState.Error -> {
                 showViewWorking()
-                showAlertDialog(getString(R.string.error_stub),
-                    appState.error.message)
+                showAlertDialog(
+                    getString(R.string.error_stub),
+                    appState.error.message
+                )
             }
         }
     }
@@ -79,12 +81,14 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity
     }
 
     private fun showAlertDialog(title: String?, message: String?) {
-        com.example.utils.ui.AlertDialogFragment.newInstance(title, message).show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
+        com.example.utils.ui.AlertDialogFragment.newInstance(title, message)
+            .show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
     }
 
     private fun showViewWorking() {
         binding.loadingFrameLayout.visibility = View.GONE
     }
+
     private fun showViewLoading() {
         binding.loadingFrameLayout.visibility = View.VISIBLE
     }

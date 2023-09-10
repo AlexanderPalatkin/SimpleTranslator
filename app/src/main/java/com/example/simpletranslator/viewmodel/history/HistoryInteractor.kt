@@ -3,15 +3,16 @@ package com.example.simpletranslator.viewmodel.history
 import com.example.model.data.DataModel
 import com.example.repository.Repository
 import com.example.repository.RepositoryLocal
-import com.example.simpletranslator.viewmodel.Interactor
+import com.example.core.viewmodel.Interactor
+import com.example.model.AppState
 
 class HistoryInteractor(
     private val repositoryRemote: Repository<List<DataModel>>,
     private val repositoryLocal: RepositoryLocal<List<DataModel>>
-) : Interactor<com.example.model.AppState> {
+) : Interactor<AppState> {
 
-    override suspend fun getData(word: String, fromRemoteSource: Boolean): com.example.model.AppState {
-        return com.example.model.AppState.Success(
+    override suspend fun getData(word: String, fromRemoteSource: Boolean): AppState {
+        return AppState.Success(
             if (fromRemoteSource) {
                 repositoryRemote
             } else {

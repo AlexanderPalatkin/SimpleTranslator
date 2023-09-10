@@ -1,4 +1,4 @@
-package com.example.simpletranslator.viewmodel
+package com.example.core.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.example.model.AppState

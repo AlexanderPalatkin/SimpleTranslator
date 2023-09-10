@@ -3,11 +3,11 @@ package com.example.simpletranslator.view.history
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.example.simpletranslator.R
-import com.example.simpletranslator.databinding.ActivityHistoryBinding
+import com.example.core.base.BaseActivity
 import com.example.model.AppState
 import com.example.model.data.DataModel
-import com.example.simpletranslator.view.base.BaseActivity
+import com.example.simpletranslator.R
+import com.example.simpletranslator.databinding.ActivityHistoryBinding
 import com.example.simpletranslator.view.description.DescriptionActivity
 import com.example.simpletranslator.viewmodel.history.HistoryInteractor
 import com.example.simpletranslator.viewmodel.history.HistoryViewModel

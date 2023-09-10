@@ -6,7 +6,7 @@ import com.example.model.AppState
 import com.example.simpletranslator.model.repository.HistoryRepository
 import com.example.repository.room.HistoryEntity
 import com.example.repository.parseLocalSearchResults
-import com.example.simpletranslator.viewmodel.BaseViewModel
+import com.example.core.viewmodel.BaseViewModel
 import kotlinx.coroutines.launch
 
 class HistoryViewModel(
