@@ -1,4 +1,4 @@
-package com.example.simpletranslator.model.repository
+package com.example.repository
 
 import com.example.model.AppState
 

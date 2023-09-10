@@ -1,4 +1,4 @@
-package com.example.simpletranslator.model.datasource
+package com.example.repository.datasource
 
 import com.example.model.data.DataModel
 import retrofit2.http.GET

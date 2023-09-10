@@ -8,7 +8,7 @@ import android.view.View
 import com.example.model.data.DataModel
 import com.example.simpletranslator.R
 import com.example.simpletranslator.databinding.ActivityMainBinding
-import com.example.simpletranslator.utils.convertMeaningsToString
+import com.example.repository.convertMeaningsToString
 import com.example.simpletranslator.view.base.BaseActivity
 import com.example.simpletranslator.view.description.DescriptionActivity
 import com.example.simpletranslator.view.history.HistoryActivity

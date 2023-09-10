@@ -1,9 +1,9 @@
-package com.example.simpletranslator.utils
+package com.example.repository
 
 import com.example.model.AppState
 import com.example.model.data.DataModel
 import com.example.model.data.Meanings
-import com.example.simpletranslator.model.room.HistoryEntity
+import com.example.repository.room.HistoryEntity
 
 fun mapHistoryEntityToSearchResult(list: List<HistoryEntity>): List<DataModel> {
     val searchResult = ArrayList<DataModel>()

@@ -2,8 +2,8 @@ package com.example.simpletranslator.viewmodel.main
 
 import com.example.model.AppState
 import com.example.model.data.DataModel
-import com.example.simpletranslator.model.repository.Repository
-import com.example.simpletranslator.model.repository.RepositoryLocal
+import com.example.repository.Repository
+import com.example.repository.RepositoryLocal
 import com.example.simpletranslator.viewmodel.Interactor
 
 class MainInteractor(

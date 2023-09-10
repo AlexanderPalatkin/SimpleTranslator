@@ -2,11 +2,15 @@ package com.example.simpletranslator.di
 
 import androidx.room.Room
 import com.example.model.data.DataModel
-import com.example.simpletranslator.model.datasource.RetrofitImplementation
-import com.example.simpletranslator.model.datasource.RoomDataBaseImplementation
+import com.example.repository.Repository
+import com.example.repository.RepositoryImplementation
+import com.example.repository.RepositoryImplementationLocal
+import com.example.repository.RepositoryLocal
+import com.example.repository.datasource.RetrofitImplementation
+import com.example.repository.datasource.RoomDataBaseImplementation
 import com.example.simpletranslator.model.repository.*
-import com.example.simpletranslator.model.room.HistoryDataBase
-import com.example.simpletranslator.model.room.HistoryEntity
+import com.example.repository.room.HistoryDataBase
+import com.example.repository.room.HistoryEntity
 import com.example.simpletranslator.viewmodel.history.HistoryInteractor
 import com.example.simpletranslator.viewmodel.history.HistoryViewModel
 import com.example.simpletranslator.viewmodel.main.MainInteractor

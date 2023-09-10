@@ -1,6 +1,5 @@
-package com.example.simpletranslator.model.datasource
+package com.example.repository.datasource
 
-import com.example.simpletranslator.BuildConfig
 import com.example.model.data.DataModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.Interceptor
@@ -21,7 +20,7 @@ class RetrofitImplementation : DataSource<List<DataModel>> {
 
     private fun createRetrofit(interceptor: Interceptor): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL_LOCATIONS)
+            .baseUrl(BASE_URL_LOCATIONS)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(createOkHttpClient(interceptor))
@@ -35,5 +34,9 @@ class RetrofitImplementation : DataSource<List<DataModel>> {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         )
         return httpClient.build()
+    }
+
+    companion object {
+        const val BASE_URL_LOCATIONS = "https://dictionary.skyeng.ru/api/public/v1/"
     }
 }

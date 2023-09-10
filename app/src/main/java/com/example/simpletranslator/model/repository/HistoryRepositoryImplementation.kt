@@ -1,7 +1,7 @@
 package com.example.simpletranslator.model.repository
 
-import com.example.simpletranslator.model.room.HistoryDao
-import com.example.simpletranslator.model.room.HistoryEntity
+import com.example.repository.room.HistoryDao
+import com.example.repository.room.HistoryEntity
 
 class HistoryRepositoryImplementation(private val historyDao: HistoryDao) :
     HistoryRepository<HistoryEntity> {

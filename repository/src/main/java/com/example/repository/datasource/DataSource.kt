@@ -1,4 +1,4 @@
-package com.example.simpletranslator.model.datasource
+package com.example.repository.datasource
 
 interface DataSource<T> {
 

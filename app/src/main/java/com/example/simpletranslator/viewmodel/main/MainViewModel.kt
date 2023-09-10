@@ -3,7 +3,7 @@ package com.example.simpletranslator.viewmodel.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.model.AppState
-import com.example.simpletranslator.utils.parseSearchResults
+import com.example.repository.parseSearchResults
 import com.example.simpletranslator.viewmodel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

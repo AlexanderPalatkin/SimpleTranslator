@@ -1,7 +1,7 @@
-package com.example.simpletranslator.model.repository
+package com.example.repository
 
 import com.example.model.data.DataModel
-import com.example.simpletranslator.model.datasource.DataSource
+import com.example.repository.datasource.DataSource
 
 class RepositoryImplementation(private val dataSource: DataSource<List<DataModel>>) :
     Repository<List<DataModel>> {

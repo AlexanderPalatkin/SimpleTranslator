@@ -1,4 +1,4 @@
-package com.example.simpletranslator.model.room
+package com.example.repository.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
