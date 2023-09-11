@@ -13,6 +13,7 @@ dependencies {
 
     //Design
     implementation(Design.appcompat)
+    implementation(Design.material)
 
     //Kotlin
     implementation(Kotlin.core)

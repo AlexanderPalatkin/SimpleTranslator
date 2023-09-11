@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.model.AppState
 import com.example.repository.parseSearchResults
 import com.example.core.viewmodel.BaseViewModel
+import com.example.simpletranslator.interactor.main.MainInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

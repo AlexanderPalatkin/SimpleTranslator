@@ -19,6 +19,8 @@ object Modules {
     const val model = ":model"
     const val core = ":core"
     const val repository = ":repository"
+    const val historyScreen = ":historyscreen"
+    const val descriptionScreen = ":descriptionscreen"
 }
 
 object Versions {

@@ -11,6 +11,7 @@ import com.example.core.viewmodel.Interactor
 import com.example.model.AppState
 import com.example.model.data.DataModel
 import com.example.utils.network.isOnline
+import com.example.utils.ui.AlertDialogFragment
 
 private const val DIALOG_FRAGMENT_TAG = "74a54328-5d62-46bf-ab6b-cbf5d8c79522"
 
@@ -81,7 +82,7 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity
     }
 
     private fun showAlertDialog(title: String?, message: String?) {
-        com.example.utils.ui.AlertDialogFragment.newInstance(title, message)
+        AlertDialogFragment.newInstance(title, message)
             .show(supportFragmentManager, DIALOG_FRAGMENT_TAG)
     }
 
