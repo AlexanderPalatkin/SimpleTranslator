@@ -6,7 +6,7 @@ import com.example.historyscreen.repository.HistoryRepository
 import com.example.historyscreen.repository.HistoryRepositoryImplementation
 import com.example.historyscreen.view.HistoryActivity
 import com.example.historyscreen.viewmodel.HistoryViewModel
-import com.example.model.data.DataModel
+import com.example.model.dto.SearchResultDto
 import com.example.repository.Repository
 import com.example.repository.RepositoryImplementation
 import com.example.repository.RepositoryImplementationLocal
@@ -28,13 +28,13 @@ val application = module {
 
     single { get<HistoryDataBase>().historyDao() }
 
-    single<Repository<List<DataModel>>> {
+    single<Repository<List<SearchResultDto>>> {
         RepositoryImplementation(
             RetrofitImplementation()
         )
     }
 
-    single<RepositoryLocal<List<DataModel>>> {
+    single<RepositoryLocal<List<SearchResultDto>>> {
         RepositoryImplementationLocal(
             RoomDataBaseImplementation(get())
         )

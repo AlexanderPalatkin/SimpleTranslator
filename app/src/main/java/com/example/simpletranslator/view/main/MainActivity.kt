@@ -11,13 +11,12 @@ import com.example.descriptionscreen.DescriptionActivity
 import com.example.historyscreen.view.HistoryActivity
 import com.example.model.AppState
 import com.example.model.data.DataModel
-import com.example.repository.convertMeaningsToString
+import com.example.repository.convertMeaningsToSingleString
 import com.example.simpletranslator.R
 import com.example.simpletranslator.databinding.ActivityMainBinding
 import com.example.simpletranslator.interactor.main.MainInteractor
 import com.example.simpletranslator.view.SearchDialogFragment
 import com.example.simpletranslator.viewmodel.main.MainViewModel
-import com.example.utils.network.isOnline
 import com.example.utils.ui.viewById
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.android.ext.android.inject
@@ -54,7 +53,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
                     DescriptionActivity.getIntent(
                         this@MainActivity,
                         data.text!!,
-                        convertMeaningsToString(data.meanings!!),
+                        convertMeaningsToSingleString(data.meanings!!),
                         data.meanings!![0].imageUrl
                     )
                 )
@@ -65,7 +64,7 @@ class MainActivity : BaseActivity<AppState, MainInteractor>() {
         object : SearchDialogFragment.OnSearchClickListener {
 
             override fun onClick(searchWord: String) {
-                isNetworkAvailable = isOnline(applicationContext)
+
                 if (isNetworkAvailable) {
                     model.getData(searchWord, isNetworkAvailable)
                 } else {

@@ -1,7 +1,6 @@
 package com.example.core.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import com.example.core.R
 import com.example.core.databinding.LoadingLayoutBinding
@@ -9,8 +8,11 @@ import com.example.core.viewmodel.BaseViewModel
 import com.example.core.viewmodel.Interactor
 import com.example.model.AppState
 import com.example.model.data.DataModel
-import com.example.utils.network.isOnline
+import com.example.utils.network.NetworkStatusFlow
 import com.example.utils.ui.AlertDialogFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.scope.ScopeActivity
 
 private const val DIALOG_FRAGMENT_TAG = "74a54328-5d62-46bf-ab6b-cbf5d8c79522"
@@ -21,18 +23,20 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : ScopeActivity() {
 
     abstract val model: BaseViewModel<T>
 
-    protected var isNetworkAvailable: Boolean = false
+    private lateinit var networkStatus: NetworkStatusFlow
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        isNetworkAvailable = isOnline(applicationContext)
+    protected var isNetworkAvailable: Boolean = true
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        initNetworkStatus()
     }
 
     override fun onResume() {
         super.onResume()
         binding = LoadingLayoutBinding.inflate(layoutInflater)
 
-        isNetworkAvailable = isOnline(applicationContext)
         if (!isNetworkAvailable && isDialogNull()) {
             showNoInternetConnectionDialog()
         }
@@ -99,4 +103,23 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : ScopeActivity() {
     }
 
     abstract fun setDataToAdapter(data: List<DataModel>)
+
+    private fun initNetworkStatus() {
+        networkStatus = NetworkStatusFlow(this@BaseActivity)
+
+        CoroutineScope(Dispatchers.Main).launch {
+            networkStatus.observeState().collect { isAvailable ->
+                this@BaseActivity.isNetworkAvailable = isAvailable
+                if (!isAvailable) {
+                    showNoInternetConnectionDialog()
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        networkStatus.unregisterNetworkCallback()
+    }
 }
