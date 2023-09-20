@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.model.data.DataModel
+import com.example.repository.convertMeaningsToSingleString
 import com.example.simpletranslator.R
 import com.example.simpletranslator.databinding.ActivityMainRecyclerviewItemBinding
 
@@ -37,7 +38,7 @@ class MainAdapter(
         fun bind(data: DataModel) {
             ActivityMainRecyclerviewItemBinding.bind(itemView).apply {
                 headerTextviewRecyclerItem.text = data.text
-                descriptionTextviewRecyclerItem.text = data.meanings?.get(0)?.translation?.translation
+                descriptionTextviewRecyclerItem.text = convertMeaningsToSingleString(data.meanings!!)
                 itemView.setOnClickListener { openInNewWindow(data) }
             }
         }

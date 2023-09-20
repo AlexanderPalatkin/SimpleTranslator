@@ -9,19 +9,25 @@ import androidx.appcompat.app.AppCompatActivity
 import coil.ImageLoader
 import coil.request.LoadRequest
 import coil.transform.CircleCropTransformation
-import com.example.core.R.*
 import com.example.descriptionscreen.databinding.ActivityDescriptionBinding
-import com.example.utils.network.isOnline
-import com.example.utils.ui.AlertDialogFragment
+import com.example.utils.network.NetworkStatusFlow
+import com.example.utils.network.NetworkStatusSnackbar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DescriptionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDescriptionBinding
 
+    private lateinit var networkStatusSnackbar: NetworkStatusSnackbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDescriptionBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        networkStatusSnackbar = NetworkStatusSnackbar(findViewById(android.R.id.content))
 
         setActionbarHomeButtonAsUp()
 
@@ -88,22 +94,20 @@ class DescriptionActivity : AppCompatActivity() {
     }
 
     private fun startLoadingOrShowError() {
-        if (isOnline(applicationContext)) {
-            setData()
-        } else {
-            AlertDialogFragment.newInstance(
-                getString(string.dialog_title_device_is_offline),
-                getString(string.dialog_message_device_is_offline)
-            ).show(
-                supportFragmentManager,
-                DIALOG_FRAGMENT_TAG
-            )
-            stopRefreshAnimationIfNeeded()
+        CoroutineScope(Dispatchers.Main).launch {
+            NetworkStatusFlow(this@DescriptionActivity).observeState().collect{isAvailable ->
+                if (isAvailable) {
+                    setData()
+                    networkStatusSnackbar.hideNoInternetConnectionMessage()
+                } else {
+                    networkStatusSnackbar.showNoInternetConnectionMessage()
+                    stopRefreshAnimationIfNeeded()
+                }
+            }
         }
     }
 
     companion object {
-        private const val DIALOG_FRAGMENT_TAG = "DIALOG_FRAGMENT_TAG"
         private const val WORD_EXTRA = "WORD_EXTRA"
         private const val DESCRIPTION_EXTRA = "DESCRIPTION_EXTRA"
         private const val URL_EXTRA = "URL_EXTRA"
@@ -118,5 +122,11 @@ class DescriptionActivity : AppCompatActivity() {
             putExtra(DESCRIPTION_EXTRA, description)
             putExtra(URL_EXTRA, url)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        NetworkStatusFlow(this@DescriptionActivity).unregisterNetworkCallback()
     }
 }

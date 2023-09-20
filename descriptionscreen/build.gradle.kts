@@ -22,6 +22,10 @@ dependencies {
     //Coil
     implementation(Coil.coil)
 
+    //Koin
+    implementation(Koin.koin_android)
+    implementation(Koin.koin_java_compat)
+
     //Test
     testImplementation(TestImpl.junit)
     androidTestImplementation(TestImpl.runner)

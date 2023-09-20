@@ -1,40 +1,51 @@
 package com.example.core.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import com.example.core.R
 import com.example.core.databinding.LoadingLayoutBinding
 import com.example.core.viewmodel.BaseViewModel
 import com.example.core.viewmodel.Interactor
 import com.example.model.AppState
 import com.example.model.data.DataModel
-import com.example.utils.network.isOnline
+import com.example.utils.network.NetworkStatusFlow
+import com.example.utils.network.NetworkStatusSnackbar
 import com.example.utils.ui.AlertDialogFragment
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import org.koin.androidx.scope.ScopeActivity
 
 private const val DIALOG_FRAGMENT_TAG = "74a54328-5d62-46bf-ab6b-cbf5d8c79522"
 
-abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity() {
+abstract class BaseActivity<T : AppState, I : Interactor<T>> : ScopeActivity() {
 
     private lateinit var binding: LoadingLayoutBinding
 
     abstract val model: BaseViewModel<T>
 
-    protected var isNetworkAvailable: Boolean = false
+    private lateinit var networkStatusSnackbar: NetworkStatusSnackbar
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        isNetworkAvailable = isOnline(applicationContext)
+    private lateinit var networkStatus: NetworkStatusFlow
+
+    protected var isNetworkAvailable: Boolean = true
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        networkStatusSnackbar = NetworkStatusSnackbar(findViewById(android.R.id.content))
+
+        initNetworkStatus()
     }
 
     override fun onResume() {
         super.onResume()
         binding = LoadingLayoutBinding.inflate(layoutInflater)
 
-        isNetworkAvailable = isOnline(applicationContext)
         if (!isNetworkAvailable && isDialogNull()) {
-            showNoInternetConnectionDialog()
+            networkStatusSnackbar.showNoInternetConnectionMessage()
+        } else {
+            networkStatusSnackbar.hideNoInternetConnectionMessage()
         }
     }
 
@@ -75,10 +86,7 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity
     }
 
     protected fun showNoInternetConnectionDialog() {
-        showAlertDialog(
-            getString(R.string.dialog_title_device_is_offline),
-            getString(R.string.dialog_message_device_is_offline)
-        )
+        networkStatusSnackbar.showNoInternetConnectionMessage()
     }
 
     private fun showAlertDialog(title: String?, message: String?) {
@@ -99,4 +107,25 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : AppCompatActivity
     }
 
     abstract fun setDataToAdapter(data: List<DataModel>)
+
+    private fun initNetworkStatus() {
+        networkStatus = NetworkStatusFlow(this@BaseActivity)
+
+        CoroutineScope(Dispatchers.Main).launch {
+            networkStatus.observeState().collect { isAvailable ->
+                this@BaseActivity.isNetworkAvailable = isAvailable
+                if (!isAvailable) {
+                    networkStatusSnackbar.showNoInternetConnectionMessage()
+                } else {
+                    networkStatusSnackbar.hideNoInternetConnectionMessage()
+                }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        networkStatus.unregisterNetworkCallback()
+    }
 }

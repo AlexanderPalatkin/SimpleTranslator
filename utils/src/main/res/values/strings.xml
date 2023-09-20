@@ -2,4 +2,5 @@
 <resources>
     <string name="dialog_title_stub">Undefined error</string>
     <string name="dialog_button_cancel">Cancel</string>
+    <string name="dialog_title_device_is_offline">No internet connection</string>
 </resources>

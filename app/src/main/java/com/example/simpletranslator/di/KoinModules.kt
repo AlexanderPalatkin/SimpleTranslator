@@ -1,11 +1,12 @@
 package com.example.simpletranslator.di
 
 import androidx.room.Room
+import com.example.historyscreen.interactor.HistoryInteractor
 import com.example.historyscreen.repository.HistoryRepository
 import com.example.historyscreen.repository.HistoryRepositoryImplementation
-import com.example.historyscreen.interactor.HistoryInteractor
+import com.example.historyscreen.view.HistoryActivity
 import com.example.historyscreen.viewmodel.HistoryViewModel
-import com.example.model.data.DataModel
+import com.example.model.dto.SearchResultDto
 import com.example.repository.Repository
 import com.example.repository.RepositoryImplementation
 import com.example.repository.RepositoryImplementationLocal
@@ -15,7 +16,10 @@ import com.example.repository.datasource.RoomDataBaseImplementation
 import com.example.repository.room.HistoryDataBase
 import com.example.repository.room.HistoryEntity
 import com.example.simpletranslator.interactor.main.MainInteractor
+import com.example.simpletranslator.view.main.MainActivity
 import com.example.simpletranslator.viewmodel.main.MainViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val application = module {
@@ -24,13 +28,13 @@ val application = module {
 
     single { get<HistoryDataBase>().historyDao() }
 
-    single<Repository<List<DataModel>>> {
+    single<Repository<List<SearchResultDto>>> {
         RepositoryImplementation(
             RetrofitImplementation()
         )
     }
 
-    single<RepositoryLocal<List<DataModel>>> {
+    single<RepositoryLocal<List<SearchResultDto>>> {
         RepositoryImplementationLocal(
             RoomDataBaseImplementation(get())
         )
@@ -42,11 +46,23 @@ val application = module {
 }
 
 val mainScreen = module {
-    factory { MainInteractor(get(), get()) }
-    factory { MainViewModel(get()) }
+    scope(named<MainActivity>()) {
+        scoped {
+            MainInteractor(get(), get())
+        }
+        viewModel {
+            MainViewModel(get())
+        }
+    }
 }
 
 val historyScreen = module {
-    factory { HistoryViewModel(get(), get()) }
-    factory { HistoryInteractor(get(), get()) }
+    scope(named<HistoryActivity>()) {
+        scoped {
+            HistoryInteractor(get(), get())
+        }
+        viewModel {
+            HistoryViewModel(get(), get())
+        }
+    }
 }

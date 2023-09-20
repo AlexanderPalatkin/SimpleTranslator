@@ -2,9 +2,9 @@ package com.example.simpletranslator.viewmodel.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.model.AppState
-import com.example.repository.parseSearchResults
 import com.example.core.viewmodel.BaseViewModel
+import com.example.model.AppState
+import com.example.repository.parseOnlineSearchResults
 import com.example.simpletranslator.interactor.main.MainInteractor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,7 +29,7 @@ class MainViewModel(
     private suspend fun startInteractor(word: String, isOnline: Boolean) =
         withContext(Dispatchers.IO) {
             liveDataForViewToObserve.postValue(
-                parseSearchResults(
+                parseOnlineSearchResults(
                     interactor.getData(
                         word,
                         isOnline
