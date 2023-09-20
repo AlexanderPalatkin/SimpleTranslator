@@ -11,6 +11,7 @@ dependencies {
 
     implementation(Design.appcompat)
     implementation(Kotlin.core)
+    implementation(Design.material)
 
     //Test
     testImplementation(TestImpl.junit)

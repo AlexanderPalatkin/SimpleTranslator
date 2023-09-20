@@ -9,6 +9,7 @@ import com.example.core.viewmodel.Interactor
 import com.example.model.AppState
 import com.example.model.data.DataModel
 import com.example.utils.network.NetworkStatusFlow
+import com.example.utils.network.NetworkStatusSnackbar
 import com.example.utils.ui.AlertDialogFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -23,12 +24,16 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : ScopeActivity() {
 
     abstract val model: BaseViewModel<T>
 
+    private lateinit var networkStatusSnackbar: NetworkStatusSnackbar
+
     private lateinit var networkStatus: NetworkStatusFlow
 
     protected var isNetworkAvailable: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        networkStatusSnackbar = NetworkStatusSnackbar(findViewById(android.R.id.content))
 
         initNetworkStatus()
     }
@@ -38,7 +43,9 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : ScopeActivity() {
         binding = LoadingLayoutBinding.inflate(layoutInflater)
 
         if (!isNetworkAvailable && isDialogNull()) {
-            showNoInternetConnectionDialog()
+            networkStatusSnackbar.showNoInternetConnectionMessage()
+        } else {
+            networkStatusSnackbar.hideNoInternetConnectionMessage()
         }
     }
 
@@ -111,7 +118,9 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : ScopeActivity() {
             networkStatus.observeState().collect { isAvailable ->
                 this@BaseActivity.isNetworkAvailable = isAvailable
                 if (!isAvailable) {
-                    showNoInternetConnectionDialog()
+                    networkStatusSnackbar.showNoInternetConnectionMessage()
+                } else {
+                    networkStatusSnackbar.hideNoInternetConnectionMessage()
                 }
             }
         }
