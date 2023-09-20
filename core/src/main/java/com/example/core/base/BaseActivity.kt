@@ -86,10 +86,7 @@ abstract class BaseActivity<T : AppState, I : Interactor<T>> : ScopeActivity() {
     }
 
     protected fun showNoInternetConnectionDialog() {
-        showAlertDialog(
-            getString(R.string.dialog_title_device_is_offline),
-            getString(R.string.dialog_message_device_is_offline)
-        )
+        networkStatusSnackbar.showNoInternetConnectionMessage()
     }
 
     private fun showAlertDialog(title: String?, message: String?) {
